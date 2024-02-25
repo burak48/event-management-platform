@@ -1,7 +1,7 @@
 import React from "react";
 
 const buttonVariantClasses = {
-    default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+    default: "bg-black text-white shadow hover:bg-black/90",
     destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
     outline: "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
     secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
@@ -30,7 +30,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 const Button = ({ className, variant, size, asChild = false, ...props }: ButtonProps) => {
     const Comp = asChild ? "span" : "button";
 
-    const classes = `${className} ${buttonVariants.variants[variant]} ${buttonVariants.size[size]}`;
+    const classes = `${className} ${buttonVariantClasses[variant]} ${buttonSizeClasses[size]}`;
 
     return (
         <Comp className={classes} {...props}>

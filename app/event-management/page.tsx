@@ -5,7 +5,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
 
-// import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 
 interface FormData {
@@ -17,6 +17,8 @@ interface FormData {
 }
 
 function Page() {
+    const router = useRouter();
+
     const [formData, setFormData] = useState<FormData>({
         eventName: "",
         description: "",
@@ -27,7 +29,6 @@ function Page() {
 
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    // const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
     const eventID = uuidv4();
 
@@ -52,7 +53,7 @@ function Page() {
         validateFormData();
 
         if (Object.values(formData).some(value => value.length === 0)) {
-            console.error("Please fill out all fields");
+            setError("Please fill out all fields");
             return;
         }
 
@@ -75,6 +76,7 @@ function Page() {
 
             if (response.ok) {
                 console.log("Event created successfully!", data);
+                router.push("/event-management-list");
             } else {
                 console.error("Error creating event", data);
                 setError("Error creating event");
