@@ -27,8 +27,9 @@ function Page() {
     }
   };
 
-  const fetchSearchResults = async () => {
-    try {
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      try {
         if (query.trim() !== "") {
           const response = await fetch(`/api/event-management/search?q=${query}`);
           const results = await response.json();
@@ -40,19 +41,18 @@ function Page() {
       } catch (error) {
         console.error('Error fetching search results', error);
       }
-  };
+    };
 
-  useEffect(() => {
-    fetchEvents();
-  }, []);
-
-  useEffect(() => {
     if (query.trim() !== "") {
       fetchSearchResults();
     } else {
       setSearchResults([]);
     }
   }, [query]);
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
 
   const handleEventClick = (eventId: string) => {
     router.push(`/event-management-detail/${eventId}`);

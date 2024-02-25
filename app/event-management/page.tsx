@@ -88,7 +88,7 @@ function Page() {
         } finally {
             setIsLoading(false);
         }
-    }, [formData, validateFormData])
+    }, [formData, validateFormData, eventID, router])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>, type: keyof FormData) => {
         onChange(e.target.value, type);
