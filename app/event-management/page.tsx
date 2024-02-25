@@ -119,8 +119,8 @@ function Page() {
                             </div>
                         ))}
                         {error && <p className="text-red-500 text-center">{error}</p>}
-                        <div className="flex flex-col sm:flex-row w-full sm:w-auto justify-center">
-                            <Button type="submit" className="text-black" variant="default" size="default">Create Event</Button>
+                        <div className="flex flex-col sm:flex-row w-full sm:w-auto justify-center items-center">
+                            <Button type="submit" className="text-black flex justify-center items-center" variant="default" size="default">Create Event</Button>
                         </div>
                     </form>
                 </>

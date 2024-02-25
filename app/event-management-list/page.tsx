@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface Event {
   event_id: string;
@@ -10,7 +10,7 @@ interface Event {
 }
 
 function Page() {
-//   const router = useRouter();
+  const router = useRouter();
 
   const [events, setEvents] = useState<Event[]>([]);
 
@@ -29,9 +29,9 @@ function Page() {
     fetchEvents();
   }, []);
 
-//   const handleEventClick = (eventId: string) => {
-//     router.push(`/event-management/${eventId}`);
-//   };
+  const handleEventClick = (eventId: string) => {
+    router.push(`/event-management-detail/${eventId}`);
+  };
 
   return (
     <div className="container mx-auto p-16 px-4 sm:px-0 max-w-2xl">
@@ -44,8 +44,7 @@ function Page() {
             <li
               key={event.event_id}
               className="border p-4 cursor-pointer"
-            //   onClick={() => handleEventClick(event.event_id)}
-              onClick={() => console.log(event.event_id)}
+              onClick={() => handleEventClick(event.event_id)}
             >
               <h2 className="text-xl font-bold line-clamp mb-4">{event.event_name}</h2>
               <p className='line-clamp-2'>{event.description}</p>
