@@ -21,7 +21,6 @@ function Page() {
     try {
       const response = await fetch('/api/event-management/list');
       const data = await response.json();
-      console.log("data: ", data);
       setEvents(data);
     } catch (error) {
       console.error('Error fetching events', error);

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ErrorPage from "@/components/Error";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
@@ -18,27 +18,27 @@ function Page({ params }: { params: { id: string } }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`/api/event-management/detail/${params.id}`);
-                const data = await response.json();
+    const fetchData = useCallback(async () => {
+        try {
+            const response = await fetch(`/api/event-management/detail/${params.id}`);
+            const data = await response.json();
 
-                if (response.ok) {
-                    setEvent(data);
-                } else {
-                    setError("Error fetching event details");
-                }
-            } catch (error) {
-                console.error("Error fetching event details", error);
-                setError("An unexpected error occurred");
-            } finally {
-                setLoading(false);
+            if (response.ok) {
+                setEvent(data);
+            } else {
+                setError("Error fetching event details");
             }
-        };
-
-        fetchData();
+        } catch (error) {
+            console.error("Error fetching event details", error);
+            setError("An unexpected error occurred");
+        } finally {
+            setLoading(false);
+        }
     }, [params.id]);
+
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
 
     if (loading) {
         return <LoadingSpinner />;
@@ -50,7 +50,7 @@ function Page({ params }: { params: { id: string } }) {
 
     return (
         <div className="container mx-auto pt-16 px-4 sm:px-0 max-w-2xl">
-            <h1 className="text-4xl font-bold mb-8 text-center">Event Detail</h1>
+            <h1 className="text-2xl font-bold mb-4 text-center">Event Detail</h1>
 
             {event ? (
                 <div className="bg-white p-6 rounded-lg shadow-md">

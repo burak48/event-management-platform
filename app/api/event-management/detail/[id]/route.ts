@@ -6,7 +6,6 @@ const prisma = new PrismaClient();
 export async function GET(request: Request, { params }: { params: { id: string }}) {
   try {
     const id = params.id;
-    console.log("ROUTE id: ", id);
 
     const event = await prisma.events.findUnique({
       where: {
